@@ -49,24 +49,27 @@ sources/1 = SubResource("TileSetAtlasSource_h1pnk")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jfouh"]
 size = Vector2(32, 64)
 
-[node name="BaseLevel" type="Node" node_paths=PackedStringArray("_pauseMenu", "_player", "_bar", "_cursor", "_camera")]
+[node name="BaseLevel" type="Node" node_paths=PackedStringArray("pauseMenu", "player", "bar", "cursor", "camera", "timer", "timeLabel", "accuracyLabel")]
 script = ExtResource("1_fr2mg")
-_pauseMenu = NodePath("PauseMenu")
-_player = NodePath("GameElements/Player")
-_bar = NodePath("HUD/ProgressBar")
-_cursor = NodePath("HUD/Cursor")
-_camera = NodePath("GameElements/Player/Camera2D")
+pauseMenu = NodePath("PauseMenu")
+player = NodePath("GameElements/Player")
+bar = NodePath("HUD/Bar")
+cursor = NodePath("HUD/Cursor")
+camera = NodePath("GameElements/Player/Camera")
+timer = NodePath("GameElements/Player/Timer")
+timeLabel = NodePath("HUD/GridContainer/Time")
+accuracyLabel = NodePath("HUD/GridContainer/Accuracy")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="HUD"]
+[node name="BarBackground" type="ColorRect" parent="HUD"]
 offset_left = 760.0
 offset_top = 113.0
 offset_right = 1160.0
 offset_bottom = 183.0
 color = Color(0, 1, 0, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="HUD"]
+[node name="Bar" type="ProgressBar" parent="HUD"]
 modulate = Color(0, 1, 1, 1)
 self_modulate = Color(0, 0, 1, 1)
 offset_left = 760.0
@@ -79,6 +82,41 @@ show_percentage = false
 [node name="Cursor" type="Sprite2D" parent="HUD"]
 position = Vector2(-561, 627)
 texture = ExtResource("2_2pl4j")
+
+[node name="Label" type="Label" parent="HUD"]
+offset_left = 671.0
+offset_top = 141.0
+offset_right = 756.0
+offset_bottom = 164.0
+text = "POSITION"
+
+[node name="Label2" type="Label" parent="HUD"]
+offset_left = 1178.0
+offset_top = 139.0
+offset_right = 1227.0
+offset_bottom = 162.0
+text = "SPEED"
+
+[node name="GridContainer" type="GridContainer" parent="HUD"]
+offset_left = 4.0
+offset_top = 182.0
+offset_right = 44.0
+offset_bottom = 222.0
+columns = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_vgbsv")
+
+[node name="Time" type="Label" parent="HUD/GridContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_vgbsv")
+
+[node name="Accuracy" type="Label" parent="HUD/GridContainer"]
+layout_mode = 2
 
 [node name="GameElements" type="Node" parent="."]
 
@@ -103,11 +141,15 @@ shape = SubResource("RectangleShape2D_jfouh")
 _body = NodePath("..")
 _gravity = 1000.0
 
-[node name="Camera2D" type="Camera2D" parent="GameElements/Player"]
+[node name="Camera" type="Camera2D" parent="GameElements/Player"]
 limit_left = 0
 limit_bottom = 1080
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
+
+[node name="Timer" type="Timer" parent="GameElements/Player"]
+wait_time = 0.05
+one_shot = true
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 2
@@ -115,7 +157,7 @@ visible = false
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 offset_right = 1920.0
-offset_bottom = 1080.0
+offset_bottom = 1200.0
 color = Color(0.192157, 0.360784, 0.513726, 0.74902)
 
 [node name="Label" type="Label" parent="PauseMenu"]
@@ -140,5 +182,6 @@ text = "CONTINUE"
 layout_mode = 2
 text = "EXIT"
 
+[connection signal="timeout" from="GameElements/Player/Timer" to="." method="OnTimeOut"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="." method="Unpause"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Exit" to="." method="Exit"]

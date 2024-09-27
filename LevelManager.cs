@@ -3,55 +3,60 @@ using System;
 
 public partial class LevelManager : Node
 {
-	[Export] private CanvasLayer _pauseMenu;
-	[Export] private CharacterBody2D _player;
-	[Export] private ProgressBar _bar;
-	[Export] private Sprite2D _cursor;
-	[Export] private Camera2D _camera;
+	[Export] private CanvasLayer pauseMenu;
+	[Export] private CharacterBody2D player;
+	[Export] private ProgressBar bar;
+	[Export] private Sprite2D cursor;
+	[Export] private Camera2D camera;
+	[Export] private Timer timer;
+	[Export] private Label timeLabel, accuracyLabel;
 
-	private int _value;
-	private bool _increasing;
-	private float _maxDistance;
-	private Vector2 _mousePosition;
-	
+	private int value;
+	private bool increasing;
+	private float maxDistance;
+	private Vector2 mousePosition, destination;
+	private Random random;
+	private float angle, radius;
+	private float x, y;
+	private double time, accuracy;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_increasing = true;
+		random = new Random(Guid.NewGuid().GetHashCode());
+		increasing = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_increasing)
+		if (increasing)
 		{
-			if (_value == 100)
+			if (value == 100)
 			{
-				_increasing = false;
+				increasing = false;
 			}
 			else
 			{
-				_value++;
+				value++;
 			}
 		}
 		else
 		{
-			if (_value == 0)
+			if (value == 0)
 			{
-				_increasing = true;
+				increasing = true;
 			}
 			else
 			{
-				_value--;
+				value--;
 			}
 		}
 
-		_bar.Value = _value;
+		bar.Value = value;
 
-		_maxDistance = _value * 2.5f;
-		
-		_mousePosition = _camera.GetGlobalMousePosition();
-		_cursor.Position = GetViewport().GetMousePosition();
+		mousePosition = camera.GetGlobalMousePosition();
+		cursor.Position = GetViewport().GetMousePosition();
 
 		if (Input.IsActionPressed("pause"))
 		{
@@ -60,37 +65,63 @@ public partial class LevelManager : Node
 
 		if (Input.IsActionJustPressed("left_click"))
 		{
-			_player.Position = GetCoordinate();
+			destination = GetCoordinate();
+			SetTimer();
+			time = timer.WaitTime;
+			accuracy = (250 - mousePosition.DistanceTo(destination)) * 2 / 5;
+			accuracyLabel.Text = Math.Truncate(accuracy) + "%";
+			timeLabel.Text = Math.Truncate(time * 10) + "";
+			timer.Start();
+		}
+		
+		if (time > 0)
+		{
+			time -= delta;
+			timeLabel.Text = Math.Truncate(time * 10) + "";
+		}
+		else
+		{
+			timeLabel.Text = "0";
 		}
 	}
 
-    public Vector2 GetCoordinate()
+    private Vector2 GetCoordinate()
     {
-
-		Random random = new Random();
-
-        // Generate a random angle between 0 and 2π
-        float angle = (float)(random.NextDouble() * Math.PI * 2);
+		maxDistance = value * 2.5f;
         
-        // Generate a random radius between 0 and _maxDistance
-        float radius = (float)(random.NextDouble() * _maxDistance);
+		// Generate a random angle between 0 and 2π
+        angle = (float)(random.NextDouble() * Math.PI * 2);
+        
+        // Generate a random radius between 0 and maxDistance
+        radius = (float)(random.NextDouble() * maxDistance);
         
         // Convert polar coordinates to Cartesian coordinates
-        float x = _mousePosition.X + radius * (float)Math.Cos(angle);
-        float y = _mousePosition.Y + radius * (float)Math.Sin(angle);
+        x = mousePosition.X + radius * (float)Math.Cos(angle);
+        y = mousePosition.Y + radius * (float)Math.Sin(angle);
         
         return new Vector2(x, y);
     }
 
+	private void SetTimer()
+	{
+		double time = 0.05 + (random.NextDouble() * (4 - (value / 25)));		
+		timer.WaitTime = time;
+	}
+
+	private void OnTimeOut()
+	{
+		player.Position = destination;
+	}
+	
 	private void Pause()
 	{
 		GetTree().Paused = true;
-		_pauseMenu.Show();
+		pauseMenu.Show();
 	}
 
 	private void Unpause()
 	{
-		_pauseMenu.Hide();
+		pauseMenu.Hide();
 		GetTree().Paused = false;
 	}
 
