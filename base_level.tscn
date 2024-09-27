@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://1n8ti3x31f1h"]
+[gd_scene load_steps=7 format=4 uid="uid://1n8ti3x31f1h"]
 
+[ext_resource type="Script" path="res://LevelManager.cs" id="1_fr2mg"]
 [ext_resource type="Texture2D" uid="uid://bryejhtsgt7rj" path="res://icon.svg" id="1_vgbsv"]
+[ext_resource type="PackedScene" uid="uid://chl5t03qgwgwr" path="res://gravity.tscn" id="2_6qao3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlbnh"]
 texture = ExtResource("1_vgbsv")
@@ -22,7 +24,10 @@ sources/0 = SubResource("TileSetAtlasSource_jlbnh")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jfouh"]
 size = Vector2(64, 128)
 
-[node name="BaseLevel" type="Node"]
+[node name="BaseLevel" type="Node" node_paths=PackedStringArray("_pauseMenu", "_player")]
+script = ExtResource("1_fr2mg")
+_pauseMenu = NodePath("PauseMenu")
+_player = NodePath("GameElements/Player")
 
 [node name="GameElements" type="Node" parent="."]
 
@@ -31,11 +36,8 @@ tile_map_data = PackedByteArray("AAAAAA8AAAAAAAAAAAAAABAAAAAAAAEAAAABAA8AAAABAAA
 tile_set = SubResource("TileSet_r45ee")
 
 [node name="Player" type="CharacterBody2D" parent="GameElements"]
-position = Vector2(251, 808)
+position = Vector2(266, 391)
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameElements/Player"]
-shape = SubResource("RectangleShape2D_jfouh")
 
 [node name="ColorRect" type="ColorRect" parent="GameElements/Player"]
 offset_left = -32.0
@@ -43,7 +45,15 @@ offset_top = -64.0
 offset_right = 32.0
 offset_bottom = 64.0
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameElements/Player"]
+shape = SubResource("RectangleShape2D_jfouh")
+
+[node name="Gravity" parent="GameElements/Player" node_paths=PackedStringArray("_body") instance=ExtResource("2_6qao3")]
+_body = NodePath("..")
+_gravity = 1000.0
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 2
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu"]
@@ -65,10 +75,13 @@ offset_right = 1006.0
 offset_bottom = 576.0
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Continue" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "CONTINUE"
 
-[node name="Button2" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Exit" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "EXIT"
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="." method="Unpause"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Exit" to="." method="Exit"]
