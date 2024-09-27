@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=4 uid="uid://1n8ti3x31f1h"]
 
-[ext_resource type="Script" path="res://LevelManager.cs" id="1_fr2mg"]
-[ext_resource type="Texture2D" uid="uid://bryejhtsgt7rj" path="res://icon.svg" id="1_vgbsv"]
-[ext_resource type="Texture2D" uid="uid://bgsrsndm8li7n" path="res://mouse-cursor.png" id="2_2pl4j"]
-[ext_resource type="PackedScene" uid="uid://chl5t03qgwgwr" path="res://gravity.tscn" id="2_6qao3"]
+[ext_resource type="Script" path="res://scripts/LevelManager.cs" id="1_38xhy"]
+[ext_resource type="Texture2D" uid="uid://bgsrsndm8li7n" path="res://sprites/mouse-cursor.png" id="2_xxgh2"]
+[ext_resource type="Texture2D" uid="uid://bryejhtsgt7rj" path="res://sprites/icon.svg" id="3_qf0i1"]
+[ext_resource type="PackedScene" uid="uid://chl5t03qgwgwr" path="res://scenes/gravity.tscn" id="4_7f4p2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1pnk"]
-texture = ExtResource("1_vgbsv")
+texture = ExtResource("3_qf0i1")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -50,7 +50,7 @@ sources/1 = SubResource("TileSetAtlasSource_h1pnk")
 size = Vector2(32, 64)
 
 [node name="BaseLevel" type="Node" node_paths=PackedStringArray("pauseMenu", "player", "bar", "cursor", "camera", "timer", "timeLabel", "accuracyLabel")]
-script = ExtResource("1_fr2mg")
+script = ExtResource("1_38xhy")
 pauseMenu = NodePath("PauseMenu")
 player = NodePath("GameElements/Player")
 bar = NodePath("HUD/Bar")
@@ -81,7 +81,7 @@ show_percentage = false
 
 [node name="Cursor" type="Sprite2D" parent="HUD"]
 position = Vector2(-561, 627)
-texture = ExtResource("2_2pl4j")
+texture = ExtResource("2_xxgh2")
 
 [node name="Label" type="Label" parent="HUD"]
 offset_left = 671.0
@@ -106,14 +106,14 @@ columns = 2
 
 [node name="TextureRect2" type="TextureRect" parent="HUD/GridContainer"]
 layout_mode = 2
-texture = ExtResource("1_vgbsv")
+texture = ExtResource("3_qf0i1")
 
 [node name="Time" type="Label" parent="HUD/GridContainer"]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="HUD/GridContainer"]
 layout_mode = 2
-texture = ExtResource("1_vgbsv")
+texture = ExtResource("3_qf0i1")
 
 [node name="Accuracy" type="Label" parent="HUD/GridContainer"]
 layout_mode = 2
@@ -137,7 +137,7 @@ offset_bottom = 32.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameElements/Player"]
 shape = SubResource("RectangleShape2D_jfouh")
 
-[node name="Gravity" parent="GameElements/Player" node_paths=PackedStringArray("_body") instance=ExtResource("2_6qao3")]
+[node name="Gravity" parent="GameElements/Player" node_paths=PackedStringArray("_body") instance=ExtResource("4_7f4p2")]
 _body = NodePath("..")
 _gravity = 1000.0
 
