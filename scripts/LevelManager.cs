@@ -101,7 +101,7 @@ public partial class LevelManager : Node
         
         return new Vector2(x, y);
     }
-
+    
 	private void SetTimer()
 	{
 		double time = 0.05 + (random.NextDouble() * (4 - (value / 25)));		
@@ -113,6 +113,11 @@ public partial class LevelManager : Node
 		player.Position = destination;
 	}
 	
+	private void OnPlatformCollision(Node2D node)
+	{
+		GD.Print("COLLIDIGN");
+	}
+
 	private void Pause()
 	{
 		GetTree().Paused = true;
