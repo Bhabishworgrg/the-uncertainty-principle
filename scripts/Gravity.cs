@@ -6,11 +6,6 @@ public partial class Gravity : Node
 	[Export] private float _gravity;
 	private Vector2 _velocity;
 
-	public override void _Ready()
-	{
-		
-	}
-
 	public override void _Process(double delta)
 	{
 		// Set velocity to 0 if on floor
@@ -18,7 +13,7 @@ public partial class Gravity : Node
 		{
 			_body.Velocity = Vector2.Zero;
 		}
-		else
+		else if (GameManager.Instance.isGravityEnabled)
 		{
 			_velocity = _body.Velocity;
 			_velocity.Y += _gravity * (float)delta;

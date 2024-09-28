@@ -143,7 +143,7 @@ texture = ExtResource("11_toyyx")
 polygon = PackedVector2Array(-35, 21, 14, 4, 21, -24, 5, -33, 1, -50, -47, -32, -82, -22, -75, 31, -56, 44, -54, 42, -51, 26, -40, 31)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [node name="SteppedChecker" type="Area2D" parent="."]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1wcj6og46d15"]
+
+[ext_resource type="Texture2D" uid="uid://wtxteajmfcri" path="res://sprites/mill.png" id="1_7of0f"]
+[ext_resource type="Script" path="res://scripts/Mill.cs" id="1_ubw3q"]
+
+[node name="Mill" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_ubw3q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("1_7of0f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1570, -1, -1571, 110, -126, 113, -1115, 1108, -1034, 1195, -1, 158, 0, 1564, 113, 1564, 115, 111, 1105, 1105, 1189, 1021, 284, 112, 1566, 110, 1566, 1, 160, -1, 1197, -1038, 1113, -1126, 113, -116, 112, -1571, -3, -1568, 0, -165, -1033, -1194, -1111, -1119, -5, -5)

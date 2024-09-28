@@ -8,7 +8,7 @@ public partial class LevelManager : Node
 	[Export] private ProgressBar bar;
 	[Export] private Sprite2D cursor;
 	[Export] private Camera2D camera;
-	[Export] private Timer timer;
+	[Export] private Timer teleportTimer, deathTimer;
 	[Export] private Label timeLabel, accuracyLabel;
 	[Export] private GridContainer valuesContainer;
 
@@ -20,10 +20,12 @@ public partial class LevelManager : Node
 	private float angle, radius;
 	private float x, y;
 	private double time, accuracy;
+	private GameManager gameManager;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		gameManager = GameManager.Instance;
 		random = new Random(Guid.NewGuid().GetHashCode());
 		increasing = true;
 	}
@@ -69,11 +71,11 @@ public partial class LevelManager : Node
 			valuesContainer.Modulate = new Color(0xffffffff);
 			destination = GetCoordinate();
 			SetTimer();
-			time = timer.WaitTime;
+			time = teleportTimer.WaitTime;
 			accuracy = (250 - mousePosition.DistanceTo(destination)) * 2 / 5;
 			accuracyLabel.Text = Math.Truncate(accuracy) + "%";
 			timeLabel.Text = Math.Truncate(time * 10) + "";
-			timer.Start();
+			teleportTimer.Start();
 		}
 		
 		if (time > 0)
@@ -102,10 +104,10 @@ public partial class LevelManager : Node
     
 	private void SetTimer()
 	{
-		timer.WaitTime = 0.05 + (random.NextDouble() * (4 - (value / 25)));
+		teleportTimer.WaitTime = 0.05 + (random.NextDouble() * (4 - (value / 25)));
 	}
 
-	private void OnTimeOut()
+	private void OnTeleportTimeOut()
 	{
 		player.Position = destination;
 		valuesContainer.Modulate = new Color(0xffffff32);
@@ -128,7 +130,16 @@ public partial class LevelManager : Node
 
 	private void Die()
 	{
-		player.Position = GameManager.Instance.CurrentCheckpoint.GlobalPosition;	
+		gameManager.isGravityEnabled = false;
+		player.RotationDegrees = (float)(random.NextDouble() * 360);
+		deathTimer.Start();
+	}
+
+	private void OnDeathTimeOut()
+	{
+		player.Rotation = 0;
+		player.Position = gameManager.CurrentCheckpoint.GlobalPosition;
+		gameManager.isGravityEnabled = true;
 	}
 
 	private void Pause()
