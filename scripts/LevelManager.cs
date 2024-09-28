@@ -10,6 +10,7 @@ public partial class LevelManager : Node
 	[Export] private Camera2D camera;
 	[Export] private Timer timer;
 	[Export] private Label timeLabel, accuracyLabel;
+	[Export] private GridContainer valuesContainer;
 
 	private int value;
 	private bool increasing;
@@ -65,6 +66,7 @@ public partial class LevelManager : Node
 
 		if (Input.IsActionJustPressed("left_click"))
 		{
+			valuesContainer.Modulate = new Color(0xffffffff);
 			destination = GetCoordinate();
 			SetTimer();
 			time = timer.WaitTime;
@@ -78,10 +80,6 @@ public partial class LevelManager : Node
 		{
 			time -= delta;
 			timeLabel.Text = Math.Truncate(time * 10) + "";
-		}
-		else
-		{
-			timeLabel.Text = "0";
 		}
 	}
 
@@ -104,18 +102,33 @@ public partial class LevelManager : Node
     
 	private void SetTimer()
 	{
-		double time = 0.05 + (random.NextDouble() * (4 - (value / 25)));		
-		timer.WaitTime = time;
+		timer.WaitTime = 0.05 + (random.NextDouble() * (4 - (value / 25)));
 	}
 
 	private void OnTimeOut()
 	{
 		player.Position = destination;
+		valuesContainer.Modulate = new Color(0xffffff32);
+		accuracyLabel.Text = "0";
+		timeLabel.Text = "0";
 	}
 	
 	private void OnPlatformCollision(Node2D node)
 	{
-		GD.Print("COLLIDIGN");
+		Die();
+	}
+
+	private void OnAreaCollision(Area2D area)
+	{
+		if (area.IsInGroup("DEATH"))
+		{
+			Die();
+		}
+	}
+
+	private void Die()
+	{
+		player.Position = GameManager.Instance.CurrentCheckpoint.GlobalPosition;	
 	}
 
 	private void Pause()

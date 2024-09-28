@@ -23,12 +23,21 @@ GameManager="*res://scripts/GameManager.cs"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://sprites/mouse-dot.png"
 mouse_cursor/custom_image_hotspot=Vector2(2, 2)
 
 [dotnet]
 
 project/assembly_name="game jam"
+
+[global_group]
+
+DEATH=""
+
+[gui]
+
+theme/custom_font="res://HeavyDataNerdFont-Regular.ttf"
 
 [input]
 
@@ -47,3 +56,8 @@ left_click={
 
 2d_physics/layer_1="PLAYER"
 2d_physics/layer_2="PLATFORM"
+2d_physics/layer_3="PLAYER INTERACTABLE"
+
+[physics]
+
+2d/size/resizable=true

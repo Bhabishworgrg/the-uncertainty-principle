@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dukt2gatiwfwp"]
+
+[ext_resource type="Script" path="res://scripts/Checkpoint.cs" id="1_xx2in"]
+[ext_resource type="Texture2D" uid="uid://woogqmctoh8m" path="res://sprites/cneckpoint-light.png" id="2_sjml6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2p0i"]
+size = Vector2(152, 178.5)
+
+[node name="Checkpoint" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_xx2in")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.25)
+shape = SubResource("RectangleShape2D_w2p0i")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 100
+position = Vector2(0, 83)
+energy = 34.15
+texture = ExtResource("2_sjml6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 83)
+texture = ExtResource("2_sjml6")
+
+[connection signal="body_entered" from="." to="." method="OnCheckpointReached"]

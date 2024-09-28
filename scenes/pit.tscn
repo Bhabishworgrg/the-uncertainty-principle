@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://12fqlw2iop4d"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hxu5l"]
+b = Vector2(-3.61999e-06, 1)
+
+[node name="Pit" type="Area2D" groups=["DEATH"]]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("SegmentShape2D_hxu5l")
+debug_color = Color(0.843137, 0, 0, 1)
