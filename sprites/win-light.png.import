@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blt5pyqbdxgcd"
-path="res://.godot/imported/checkpoint-light1.png-12e75f647294d3aeb8e061dfcfdb79fc.ctex"
+uid="uid://b0gcfc5b7qhm1"
+path="res://.godot/imported/win-light.png-238ded04c8ca7c0d535d022594ab2c50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/checkpoint-light1.png"
-dest_files=["res://.godot/imported/checkpoint-light1.png-12e75f647294d3aeb8e061dfcfdb79fc.ctex"]
+source_file="res://sprites/win-light.png"
+dest_files=["res://.godot/imported/win-light.png-238ded04c8ca7c0d535d022594ab2c50.ctex"]
 
 [params]
 

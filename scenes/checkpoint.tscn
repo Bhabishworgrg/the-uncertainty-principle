@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://woogqmctoh8m" path="res://sprites/cneckpoint-light.png" id="2_sjml6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2p0i"]
-size = Vector2(152, 178.5)
+size = Vector2(152, 155)
 
 [node name="Checkpoint" type="Area2D"]
 collision_layer = 4
 script = ExtResource("1_xx2in")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -40.25)
+position = Vector2(0, -30.5)
 shape = SubResource("RectangleShape2D_w2p0i")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]

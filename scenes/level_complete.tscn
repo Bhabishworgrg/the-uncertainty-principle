@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm8frrp7s0yl8"]
+
+[ext_resource type="Script" path="res://scripts/LevelComplete.cs" id="1_bb7i5"]
+[ext_resource type="Texture2D" uid="uid://b0gcfc5b7qhm1" path="res://sprites/win-light.png" id="2_58km1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2p0i"]
+size = Vector2(152, 2)
+
+[node name="LevelComplete" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_bb7i5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 48)
+shape = SubResource("RectangleShape2D_w2p0i")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 100
+position = Vector2(0, 51)
+energy = 34.15
+texture = ExtResource("2_58km1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 51)
+texture = ExtResource("2_58km1")
+
+[connection signal="body_entered" from="." to="." method="OnLevelCompleted"]
