@@ -11,9 +11,10 @@ public partial class LevelManager : Node
 	[Export] private Timer teleportTimer, deathTimer;
 	[Export] private Label timeLabel, accuracyLabel;
 	[Export] private GridContainer valuesContainer;
+	[Export] private AudioStreamPlayer deathPlayer;
 
 	private int value;
-	private bool increasing;
+	private bool increasing, midProcess;
 	private float maxDistance;
 	private Vector2 mousePosition, destination;
 	private Random random;
@@ -28,6 +29,7 @@ public partial class LevelManager : Node
 		gameManager = GameManager.Instance;
 		random = new Random(Guid.NewGuid().GetHashCode());
 		increasing = true;
+		midProcess = false;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,8 +68,9 @@ public partial class LevelManager : Node
 			Pause();
 		}
 
-		if (Input.IsActionJustPressed("left_click"))
+		if (Input.IsActionJustPressed("left_click") && !midProcess)
 		{
+			midProcess = true;
 			valuesContainer.Modulate = new Color(0xffffffff);
 			destination = GetCoordinate();
 			SetTimer();
@@ -110,6 +113,7 @@ public partial class LevelManager : Node
 	private void OnTeleportTimeOut()
 	{
 		player.Position = destination;
+		midProcess = false;
 		valuesContainer.Modulate = new Color(0xffffff32);
 		accuracyLabel.Text = "0";
 		timeLabel.Text = "0";
@@ -130,15 +134,21 @@ public partial class LevelManager : Node
 
 	private void Die()
 	{
-		gameManager.isGravityEnabled = false;
-		player.RotationDegrees = (float)(random.NextDouble() * 360);
-		deathTimer.Start();
+		if (!midProcess)
+		{
+			midProcess = true;
+			gameManager.isGravityEnabled = false;
+			player.RotationDegrees = (float)(random.NextDouble() * 360);
+			deathPlayer.Play();
+			deathTimer.Start();
+		}
 	}
 
 	private void OnDeathTimeOut()
 	{
 		player.Rotation = 0;
 		player.Position = gameManager.CurrentCheckpoint.GlobalPosition;
+		midProcess = false;
 		gameManager.isGravityEnabled = true;
 	}
 

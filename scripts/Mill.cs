@@ -4,6 +4,6 @@ public partial class Mill : StaticBody2D
 {
 	public override void _Process(double delta)
 	{
-		Rotation += (float)delta;
+		Rotation += (float)delta * 0.1f;
 	}
 }
