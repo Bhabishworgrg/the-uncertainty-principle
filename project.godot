@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="game jam"
+config/name="The Uncerntainty Principle"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://sprites/icon.svg"
+config/icon="res://sprites/icon.png"
 
 [autoload]
 
@@ -23,6 +23,7 @@ GameManager="*res://scripts/GameManager.cs"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/resizable=false
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://sprites/mouse-dot.png"
 mouse_cursor/custom_image_hotspot=Vector2(2, 2)

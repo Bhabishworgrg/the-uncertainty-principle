@@ -6,12 +6,12 @@ public partial class LevelManager : Node
 	[Export] private CanvasLayer pauseMenu;
 	[Export] private CharacterBody2D player;
 	[Export] private ProgressBar bar;
-	[Export] private Sprite2D cursor;
 	[Export] private Camera2D camera;
 	[Export] private Timer teleportTimer, deathTimer;
 	[Export] private Label timeLabel, accuracyLabel;
 	[Export] private GridContainer valuesContainer;
-	[Export] private AudioStreamPlayer deathPlayer;
+	[Export] private AudioStreamPlayer deathPlayer, teleportAudioPlayer;
+	[Export] private AnimationPlayer teleportPlayer;
 
 	private int value;
 	private bool increasing, midProcess;
@@ -61,7 +61,6 @@ public partial class LevelManager : Node
 		bar.Value = value;
 
 		mousePosition = camera.GetGlobalMousePosition();
-		cursor.Position = GetViewport().GetMousePosition();
 
 		if (Input.IsActionPressed("pause"))
 		{
@@ -113,6 +112,8 @@ public partial class LevelManager : Node
 	private void OnTeleportTimeOut()
 	{
 		player.Position = destination;
+		teleportPlayer.Play("teleport");
+		teleportAudioPlayer.Play();	
 		midProcess = false;
 		valuesContainer.Modulate = new Color(0xffffff32);
 		accuracyLabel.Text = "0";
