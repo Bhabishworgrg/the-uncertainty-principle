@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dukt2gatiwfwp"]
 
 [ext_resource type="Script" path="res://scripts/Checkpoint.cs" id="1_xx2in"]
-[ext_resource type="Texture2D" uid="uid://woogqmctoh8m" path="res://sprites/cneckpoint-light.png" id="2_sjml6"]
+[ext_resource type="Texture2D" uid="uid://budntn6o0ygw1" path="res://sprites/cneckpoint-light.png" id="2_sjml6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2p0i"]
 size = Vector2(152, 4)

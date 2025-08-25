@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="The Uncerntainty Principle"
+config/name="The Uncertainty Principle"
 run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://sprites/icon.png"
 
 [autoload]
@@ -30,7 +30,7 @@ mouse_cursor/custom_image_hotspot=Vector2(2, 2)
 
 [dotnet]
 
-project/assembly_name="game jam"
+project/assembly_name="The Uncertainty Principle"
 
 [global_group]
 
