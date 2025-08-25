@@ -1,6 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-*.aseprite
-*.json
-*.mid
+*.import
+
+# Kitty session files
+session.kitty
+
+# Exported files
+exports/
+
+# .NET specific ignores
+*.sln
+*.csproj
