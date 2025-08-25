@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bbrmqrf5o87wk"]
 
-[ext_resource type="Texture2D" uid="uid://d1173yni3rskv" path="res://sprites/dragon.png" id="1_174uo"]
+[ext_resource type="Texture2D" uid="uid://g4774mdbmvs1" path="res://assets/sprites/dragon.png" id="1_174uo"]
 
 [node name="Dragon" type="StaticBody2D"]
 collision_layer = 2

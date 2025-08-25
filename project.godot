@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="The Uncertainty Principle"
-run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://sprites/icon.png"
+run/main_scene="res://src/main_menu/main_menu.tscn"
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/icon="res://assets/icon.png"
 
 [autoload]
 
-GameManager="*res://scripts/GameManager.cs"
+GameManager="*res://src/autoload/GameManager.cs"
 
 [display]
 
@@ -25,7 +25,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/resizable=false
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="res://sprites/mouse-dot.png"
+mouse_cursor/custom_image="res://assets/sprites/mouse-dot.png"
 mouse_cursor/custom_image_hotspot=Vector2(2, 2)
 
 [dotnet]
@@ -38,7 +38,7 @@ DEATH=""
 
 [gui]
 
-theme/custom_font="res://HeavyDataNerdFont-Regular.ttf"
+theme/custom_font="res://assets/fonts/HeavyDataNerdFont-Regular.ttf"
 
 [input]
 

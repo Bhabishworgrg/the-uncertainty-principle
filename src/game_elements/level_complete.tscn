@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dm8frrp7s0yl8"]
 
-[ext_resource type="Script" path="res://scripts/LevelComplete.cs" id="1_bb7i5"]
-[ext_resource type="Texture2D" uid="uid://b0gcfc5b7qhm1" path="res://sprites/win-light.png" id="2_58km1"]
+[ext_resource type="Script" path="res://src/game_elements/LevelComplete.cs" id="1_bb7i5"]
+[ext_resource type="Texture2D" uid="uid://ce3ucoth2wq47" path="res://assets/sprites/win-light.png" id="2_58km1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2p0i"]
 size = Vector2(152, 2)
