@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://c1683rmjvsk4r"]
 
-[ext_resource type="Script" path="res://src/game_elements/PlatformTrap.cs" id="1_3kh38"]
+[ext_resource type="Script" uid="uid://cp8u10spwbm37" path="res://src/game_elements/PlatformTrap.cs" id="1_3kh38"]
 [ext_resource type="Texture2D" uid="uid://duri48fk76ydi" path="res://assets/sprites/trap-1.png" id="1_aj402"]
 [ext_resource type="Texture2D" uid="uid://84csef7rbmic" path="res://assets/sprites/trap-2.png" id="2_ichb5"]
 [ext_resource type="Texture2D" uid="uid://dbg61xusxrcpx" path="res://assets/sprites/trap-3.png" id="3_7jhyh"]

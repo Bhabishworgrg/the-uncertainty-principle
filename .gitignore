@@ -2,13 +2,10 @@
 .godot/
 /android/
 *.import
+*.cs.uid
 
 # Kitty session files
 session.kitty
 
 # Exported files
 exports/
-
-# .NET specific ignores
-*.sln
-*.csproj

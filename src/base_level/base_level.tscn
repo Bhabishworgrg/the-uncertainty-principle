@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=4 uid="uid://1n8ti3x31f1h"]
 
-[ext_resource type="Script" path="res://src/base_level/LevelManager.cs" id="1_btxxh"]
+[ext_resource type="Script" uid="uid://5tvm1gbsojt2" path="res://src/base_level/LevelManager.cs" id="1_btxxh"]
 [ext_resource type="Texture2D" uid="uid://bocf1autr80t4" path="res://assets/sprites/platform.png" id="2_2px6y"]
 [ext_resource type="PackedScene" uid="uid://dukt2gatiwfwp" path="res://src/game_elements/checkpoint.tscn" id="3_cpve2"]
 [ext_resource type="PackedScene" uid="uid://c1683rmjvsk4r" path="res://src/game_elements/platform_trap.tscn" id="4_kusjj"]
@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://7x3ni3eux42i" path="res://assets/sounds/teleport.wav" id="11_m7jp0"]
 [ext_resource type="PackedScene" uid="uid://dm8frrp7s0yl8" path="res://src/game_elements/level_complete.tscn" id="12_c448p"]
 [ext_resource type="AudioStream" uid="uid://dgfqynpks2w1s" path="res://assets/sounds/background.wav" id="13_leb6k"]
-[ext_resource type="Script" path="res://src/game_elements/MusicPlayer.cs" id="14_8wjef"]
+[ext_resource type="Script" uid="uid://c32jelet07eey" path="res://src/game_elements/MusicPlayer.cs" id="14_8wjef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oo71k"]
 texture = ExtResource("2_2px6y")
@@ -100,8 +100,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ral6"]
 _data = {
-"RESET": SubResource("Animation_n3y3e"),
-"teleport": SubResource("Animation_jy6nc")
+&"RESET": SubResource("Animation_n3y3e"),
+&"teleport": SubResource("Animation_jy6nc")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guvhc"]
