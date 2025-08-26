@@ -1,0 +1,59 @@
+name: "godot-ci export"
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  GODOT_VERSION: 4.4
+  EXPORT_NAME: the-uncertainty-principle
+  PROJECT_PATH: .
+
+jobs:
+  export:
+    runs-on: ubuntu-22.04
+    container:
+      image: barichello/godot-ci:mono-4.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
+      
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+      
+      - name: Linux Build
+        run: |
+          mkdir -v -p build/linux
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "The Uncertainty Principle ${{ github.ref_name }}"
+          body: |
+            ⚠️ Important: This version is not code-signed, so Windows might flag it as unsafe or as a potential virus.
+            If you see a warning, please choose to run the application anyway.
+            > This is normal for unsigned executables. The game is safe to run.
+
+            For x86_32 architecture, please build it yourself following the instructions in [BUILDING.md](docs/BUILDING.md).
+          draft: false
+          prerelease: false
+          files: |
+            build/windows/the-uncertainty-principle.exe
+            build/linux/the-uncertainty-principle.x86_64
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_ACCESS_TOKEN }}
